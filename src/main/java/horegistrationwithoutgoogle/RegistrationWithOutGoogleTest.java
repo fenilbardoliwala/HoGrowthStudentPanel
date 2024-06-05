@@ -203,8 +203,8 @@ public class RegistrationWithOutGoogleTest extends BaseTest {
                 System.out.println("\u001B[33m-----TestCases5:-Check invalid email address validation-----\u001B[0m");
                 String expected5 = "Please enter a valid email address";
                 String actual5 = driver.findElement(By.xpath("//p[normalize-space()='Please enter a valid email address']")).getText();
-                test = reports.createTest("Check invalid email address validation").assignAuthor("Fenil").assignCategory("Registration WithOut Google Testcases")
-                        .assignDevice("Firefox").pass(MediaEntityBuilder.createScreenCaptureFromPath("./TestcasesScreenshot/screenshots"+takingScreenshot(driver),"Check invalid email address validation").build());
+                test = reports.createTest("Check invalid email address validation").assignAuthor("Fenil").assignCategory(getClass().
+            getName()).assignDevice(driver.getClass().getSimpleName()).pass(MediaEntityBuilder.createScreenCaptureFromPath("./TestcasesScreenshot/screenshots"+takingScreenshot(driver),"Check invalid email address validation").build());
                 Assert.assertTrue(true);//pass
                 System.out.println("expected5=" + expected5);
                 System.out.println("actual5=" + actual5);
@@ -265,8 +265,8 @@ public class RegistrationWithOutGoogleTest extends BaseTest {
                 System.out.println("\u001B[33m-----TestCases6:-Check invalid password validation-----\u001B[0m");
                 String expected6 = "Password must contain at least one special character and one number";
                 String actual6 = driver.findElement(By.xpath("//p[normalize-space()='Password must contain at least one special character and one number']")).getText();
-                test = reports.createTest("Check invalid password validation").assignAuthor("Fenil").assignCategory("Registration WithOut Google Testcases")
-                        .assignDevice("Firefox").pass(MediaEntityBuilder.createScreenCaptureFromPath("./TestcasesScreenshot/screenshots"+takingScreenshot(driver),"Check invalid password validation").build());
+                test = reports.createTest("Check invalid password validation").assignAuthor("Fenil").assignCategory(getClass().
+                        getName()).assignDevice(driver.getClass().getSimpleName()).pass(MediaEntityBuilder.createScreenCaptureFromPath("./TestcasesScreenshot/screenshots"+takingScreenshot(driver),"Check invalid password validation").build());
                 Assert.assertTrue(true);//pass
                 System.out.println("expected6=" + expected6);
                 System.out.println("actual6=" + actual6);
@@ -281,4 +281,46 @@ public class RegistrationWithOutGoogleTest extends BaseTest {
                 }
 
         }
+    @Test
+    public void StudentRegistrationPasswordMatchValidationTest4() throws IOException, InterruptedException {
+//                WebElement btnSignUp = driver.findElement(By.xpath("//span[text()=\"Sign Up\"]"));
+//                btnSignUp.click();
+
+        //FullName
+        Thread.sleep(2000);
+        driver.navigate().refresh();
+        WebElement FullNameInput = driver.findElement(By.xpath("//input[@placeholder='Enter First Name']"));
+        FullNameInput.sendKeys("Fenil Bardoliwala");
+
+        //email
+        WebElement EmailInput = driver.findElement(By.xpath("//input[@placeholder='Enter Email']"));
+        EmailInput.sendKeys(GetRandomEmail()+"@gmail.com");
+        //password
+        WebElement PasswordInput = driver.findElement(By.xpath("//input[@placeholder='Enter Create Password']"));
+        PasswordInput.sendKeys("Fenil@123");
+
+        //re-enter password
+        WebElement ReEnterPasswordInput = driver.findElement(By.xpath("//input[@placeholder='Enter Confirm Password']"));
+        ReEnterPasswordInput.sendKeys("Fenil@1234");
+        WebElement btnRegister = driver.findElement(By.id("kt_sign_up_submit"));
+        btnRegister.click();
+        //WebElement errorMessagePasswordMatches = driver.findElement(By.xpath("//p[normalize-space()='Passwords do not match']"));
+        System.out.println("\u001B[33m-----TestCases7:-Check password and re-enter password matched validation-----\u001B[0m");
+        String expected7 = "Passwords do not match";
+        String actual7 = driver.findElement(By.xpath("//p[normalize-space()='Passwords do not match']")).getText();
+        test = reports.createTest("Check password and re-enter password matched validation").assignAuthor("Fenil").assignCategory(getClass().
+                getName()).assignDevice(driver.getClass().getSimpleName()).pass(MediaEntityBuilder.createScreenCaptureFromPath("./TestcasesScreenshot/screenshots"+takingScreenshot(driver),"Check password and re-enter password matched validation").build());
+        Assert.assertTrue(true);//pass
+        System.out.println("expected7=" + expected7);
+        System.out.println("actual7=" + actual7);
+        Assert.assertEquals("Password and re-enter password validation not work", expected7, actual7);
+        if (actual7.equalsIgnoreCase(expected7))
+        {
+            System.out.println("\u001B[32m***Test passed***\u001B[0m");
+        }
+        else
+        {
+            System.out.println("\u001B[31m***Test Failed***\u001B[0m");
+        }
+}
 }
