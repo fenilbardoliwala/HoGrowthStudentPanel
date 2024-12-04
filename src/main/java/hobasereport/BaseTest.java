@@ -48,7 +48,7 @@ public class BaseTest {
         // Get browser name from capabilities
         Capabilities caps = ((RemoteWebDriver) driver).getCapabilities();
         browserName = caps.getBrowserName();
-         url = "https://hogrowth.jainam.in/user/auth";
+         url = "https://uat.hogrowth.com/";
        // url="http://192.168.51.185:3001/";
         email = "fenilbardoliwala1212@gmail.com";
         pass = "Fenil@1212";

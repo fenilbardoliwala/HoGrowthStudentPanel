@@ -17,39 +17,43 @@ public class RegistrationWithOutGoogleTest extends BaseTest {
 
 @Test
 
-    public void StudentRegistrationBlankFieldValidationTest1() throws IOException {
+    public void StudentRegistrationBlankFieldValidationTest1() throws IOException, InterruptedException {
 
-            WebElement btnSignUp = driver.findElement(By.xpath("//span[text()=\"Sign Up\"]"));
+            Thread.sleep(5000);
+            WebElement btnSignUp = driver.findElement(By.xpath("(//button[text()='Sign Up'])[1]"));
             btnSignUp.click();
 
-            WebElement btnRegister = driver.findElement(By.id("kt_sign_up_submit"));
-            btnRegister.click();
+            WebElement btnContinue = driver.findElement(By.xpath("//span[text()='Continue']"));
+            btnContinue.click();
 
             //FullName
-            WebElement FullNameInput = driver.findElement(By.xpath("//input[@placeholder='Enter First Name']"));
+            WebElement FullNameInput = driver.findElement(By.xpath("//input[@placeholder='Enter Full Name']"));
             FullNameInput.clear();
 
 
-            WebElement errorMessageFullName = driver.findElement(By.xpath("//p[normalize-space()='Name is required']"));
+            WebElement errorMessageFullName = driver.findElement(By.xpath("//div[normalize-space()='Please enter your full name']"));
 
 
             //email
-            WebElement EmailInput = driver.findElement(By.xpath("//input[@placeholder='Enter Email']"));
+            WebElement EmailInput = driver.findElement(By.xpath("//input[@placeholder='Enter Email Address']"));
             EmailInput.clear();
-            WebElement errorMessageEmail = driver.findElement(By.xpath("//p[normalize-space()='Please enter a valid email address']"));
+            WebElement errorMessageEmail = driver.findElement(By.xpath("//div[normalize-space()='Please enter your email address']"));
+
+            //Mobile
+            WebElement MobileInput = driver.findElement(By.xpath("//input[@placeholder='Enter Mobile Number (e.g. - 6123456789)']"));
+            MobileInput.click();
+            EmailInput.click();
+            MobileInput.clear();
+            WebElement errorMessageMobile = driver.findElement(By.xpath("//div[normalize-space()='Please enter your mobile number']"));
 
 
             //password
-            WebElement PasswordInput = driver.findElement(By.xpath("//input[@placeholder='Enter Create Password']"));
+            WebElement PasswordInput = driver.findElement(By.xpath("//input[@placeholder='Enter Your Password']"));
             PasswordInput.clear();
-            WebElement errorMessagePassword = driver.findElement(By.xpath("//p[normalize-space()='create password is required']"));
+            WebElement errorMessagePassword = driver.findElement(By.xpath("//div[normalize-space()='Please create a password']"));
 
-            //re-enter password
-            WebElement ReEnterPasswordInput = driver.findElement(By.xpath("//input[@placeholder='Enter Confirm Password']"));
-            ReEnterPasswordInput.clear();
-            WebElement errorMessageReEnterPassword = driver.findElement(By.xpath("//p[normalize-space()='Confirm password is required']"));
 
-            System.out.println("\u001B[33m-----TestCases1:-Check blank first name validation-----\u001B[0m");
+            System.out.println("\u001B[33m-----TestCases1:-Check blank full name validation-----\u001B[0m");
             //Check blank field handled or not
             if (errorMessageFullName.isDisplayed())
             {
@@ -59,8 +63,8 @@ public class RegistrationWithOutGoogleTest extends BaseTest {
             {
                 System.out.println("Error handling is not working as expected.");
             }
-            String expected1 = "Name is required";
-            String actual1 = driver.findElement(By.xpath("//p[normalize-space()='Name is required']")).getText();
+            String expected1 = "Please enter your full name";
+            String actual1 = driver.findElement(By.xpath("//div[normalize-space()='Please enter your full name']")).getText();
             test = reports.createTest("Check blank full name validation").assignAuthor("Fenil").assignCategory(getClass().
                     getName()).assignDevice(driver.getClass().getSimpleName()).pass(MediaEntityBuilder.createScreenCaptureFromPath
                     ("./TestcasesScreenshot/screenshots" + takingScreenshot(driver),"Check blank full name validation").build());
@@ -73,7 +77,7 @@ public class RegistrationWithOutGoogleTest extends BaseTest {
                 System.out.println("\u001B[32m***Test passed***\u001B[0m");
             }
             else
-            { driver.quit();
+            {
                 System.out.println("\u001B[31m***Test Failed***\u001B[0m");
             }
             System.out.println("\u001B[33m-----TestCases2:-Check blank enail validation-----\u001B[0m");
@@ -86,8 +90,8 @@ public class RegistrationWithOutGoogleTest extends BaseTest {
             {
                 System.out.println("Error handling is not working as expected.");
             }
-            String expected2 = "Please enter a valid email address";
-            String actual2 = driver.findElement(By.xpath("//p[normalize-space()='Please enter a valid email address']")).getText();
+            String expected2 = "Please enter your email address";
+            String actual2 = driver.findElement(By.xpath("//div[normalize-space()='Please enter your email address']")).getText();
             test = reports.createTest("Check blank email validation").assignAuthor("Fenil").assignCategory(getClass().
                     getName()).assignDevice(driver.getClass().getSimpleName()).pass(MediaEntityBuilder.createScreenCaptureFromPath
                     ("./TestcasesScreenshot/screenshots" + takingScreenshot(driver),"Check blank email validation").build());
@@ -103,25 +107,25 @@ public class RegistrationWithOutGoogleTest extends BaseTest {
             {
                 System.out.println("\u001B[31m***Test Failed***\u001B[0m");
             }
-            System.out.println("\u001B[33m-----TestCases3:-Check blank create paasword validation-----\u001B[0m");
+            System.out.println("\u001B[33m-----TestCases3:-Check blank mobile number validation-----\u001B[0m");
             //Check blank field handled or not
-            if (errorMessagePassword.isDisplayed())
+            if (errorMessageMobile.isDisplayed())
             {
-                System.out.println("Blank create paasword fields handled correctly.");
+                System.out.println("Blank mobile number fields handled correctly.");
             }
             else
             {
                 System.out.println("Error handling is not working as expected.");
             }
-            String expected3 = "create password is required";
-            String actual3 = driver.findElement(By.xpath("//p[normalize-space()='create password is required']")).getText();
-            test = reports.createTest("Check blank create paasword validation").assignAuthor("Fenil").assignCategory(getClass().
+            String expected3 = "Please enter your mobile number";
+            String actual3 = driver.findElement(By.xpath("//div[normalize-space()='Please enter your mobile number']")).getText();
+            test = reports.createTest("Check blank mobile number validation").assignAuthor("Fenil").assignCategory(getClass().
                     getName()).assignDevice(driver.getClass().getSimpleName()).pass(MediaEntityBuilder.createScreenCaptureFromPath
-                    ("./TestcasesScreenshot/screenshots" + takingScreenshot(driver),"Check blank create paasword validation").build());
+                    ("./TestcasesScreenshot/screenshots" + takingScreenshot(driver),"Check blank mobile number validation").build());
             Assert.assertTrue(true);//pass
             System.out.println("expected3=" + expected3);
             System.out.println("actual3=" + actual3);
-            Assert.assertEquals("Create paasword required field validation not work", expected3, actual3);
+            Assert.assertEquals("Mobile number required field validation not work", expected3, actual3);
             if (actual3.equalsIgnoreCase(expected3))
             {
                 System.out.println("\u001B[32m***Test passed***\u001B[0m");
@@ -133,19 +137,19 @@ public class RegistrationWithOutGoogleTest extends BaseTest {
 
             System.out.println("\u001B[33m-----TestCases4:-Check blank Confirm paasword validation-----\u001B[0m");
             //Check blank field handled or not
-            if (errorMessageReEnterPassword.isDisplayed())
+            if (errorMessagePassword.isDisplayed())
             {
-                System.out.println("Blank confirm paasword fields handled correctly.");
+                System.out.println("Blank paasword fields handled correctly.");
             }
             else
             {
                 System.out.println("Error handling is not working as expected.");
             }
-            String expected4 = "Confirm password is required";
-            String actual4 = driver.findElement(By.xpath("//p[normalize-space()='Confirm password is required']")).getText();
-            test = reports.createTest("Check blank confirm paasword validation").assignAuthor("Fenil").assignCategory(getClass().
+            String expected4 = "Please create a password";
+            String actual4 = driver.findElement(By.xpath("//div[normalize-space()='Please create a password']")).getText();
+            test = reports.createTest("Check blank paasword validation").assignAuthor("Fenil").assignCategory(getClass().
                     getName()).assignDevice(driver.getClass().getSimpleName()).pass(MediaEntityBuilder.createScreenCaptureFromPath
-                    ("./TestcasesScreenshot/screenshots" + takingScreenshot(driver),"Check blank confirm paasword validation").build());
+                    ("./TestcasesScreenshot/screenshots" + takingScreenshot(driver),"Check blank paasword validation").build());
             Assert.assertTrue(true);//pass
             System.out.println("expected4=" + expected4);
             System.out.println("actual4=" + actual4);
@@ -222,7 +226,6 @@ public class RegistrationWithOutGoogleTest extends BaseTest {
         public void StudentRegistrationInvalidPasswordFormatValidationTest3() throws IOException, InterruptedException {
 //                WebElement btnSignUp = driver.findElement(By.xpath("//span[text()=\"Sign Up\"]"));
 //                btnSignUp.click();
-
                 //FullName
                Thread.sleep(2000);
                 driver.navigate().refresh();
@@ -323,4 +326,44 @@ public class RegistrationWithOutGoogleTest extends BaseTest {
             System.out.println("\u001B[31m***Test Failed***\u001B[0m");
         }
 }
+    @Test
+    public void StudentRegistrationWithValidDataTest5() throws IOException, InterruptedException {
+//                WebElement btnSignUp = driver.findElement(By.xpath("//span[text()=\"Sign Up\"]"));
+//                btnSignUp.click();
+
+        //FullName
+        Thread.sleep(2000);
+        driver.navigate().refresh();
+        WebElement FullNameInput = driver.findElement(By.xpath("//input[@placeholder='Enter First Name']"));
+        FullNameInput.sendKeys("Fenil Bardoliwala");
+
+        //email
+        WebElement EmailInput = driver.findElement(By.xpath("//input[@placeholder='Enter Email']"));
+        EmailInput.sendKeys(GetRandomEmail()+"@gmail.com");
+        //password
+        WebElement PasswordInput = driver.findElement(By.xpath("//input[@placeholder='Enter Create Password']"));
+        PasswordInput.sendKeys(pass);
+        //re-enter password
+        WebElement ReEnterPasswordInput = driver.findElement(By.xpath("//input[@placeholder='Enter Confirm Password']"));
+        ReEnterPasswordInput.sendKeys(pass);
+        WebElement btnRegister = driver.findElement(By.id("kt_sign_up_submit"));
+        btnRegister.click();
+        System.out.println("\u001B[33m-----TestCases8:-Check registration with out google functionality with valid data with mobile OTP verification-----\u001B[0m");
+        String expected8 = "Passwords do not match";
+        String actual8 = driver.findElement(By.xpath("//p[normalize-space()='Passwords do not match']")).getText();
+        test = reports.createTest("Check registration with out google functionality with valid data with mobile OTP verification").assignAuthor("Fenil").assignCategory(getClass().
+                getName()).assignDevice(driver.getClass().getSimpleName()).pass(MediaEntityBuilder.createScreenCaptureFromPath("./TestcasesScreenshot/screenshots"+takingScreenshot(driver),"Check registration with out google functionality with valid data with mobile OTP verification").build());
+        Assert.assertTrue(true);//pass
+        System.out.println("expected8=" + expected8);
+        System.out.println("actual8=" + actual8);
+        Assert.assertEquals("Registration with out google functionality with valid data with mobile OTP verification not work", expected8, actual8);
+        if (actual8.equalsIgnoreCase(expected8))
+        {
+            System.out.println("\u001B[32m***Test passed***\u001B[0m");
+        }
+        else
+        {
+            System.out.println("\u001B[31m***Test Failed***\u001B[0m");
+        }
+    }
 }
